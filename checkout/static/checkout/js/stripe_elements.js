@@ -1,7 +1,8 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var _clientSecret = $('#id_client_secret').text().slice(1, -1);
-var stripe = Stripe(stripe_public_key);
-var elements = stripe.elements({ clientSecret: _clientSecret });
+console.log(_clientSecret);
+var stripe = Stripe(stripePublicKey);
+var elements = stripe.elements();
 var style = {
     base: {
         color: '#000',
@@ -19,7 +20,6 @@ var style = {
 };
 var cardElement = elements.create('card', {style: style});
 cardElement.mount('#card-element');
-
 
 cardElement.addEventListener('change', function (event){
     var errorDiv = document.getElementById('card-errors');
@@ -42,8 +42,8 @@ form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     cardElement.update({ 'disabled': true });
     $('#submit-button').attr('disabled', true);
-    //$('#payment-form').fadeToggle(100);
-    //$('#loading-overlay').fadeToggle(100);
+    $('#payment-form').fadeToggle(100);
+    $('#loading-overlay').fadeToggle(100);
 
     //var saveInfo = Boolean($('#id-save-info').attr('checked'));
     // From using {% csrf_token %} in the form
@@ -61,9 +61,10 @@ form.addEventListener('submit', function(ev) {
     stripe.confirmCardPayment(_clientSecret, {
         payment_method: {
             card: cardElement,
+            /*
             billing_details: {
-                name: "Hello",
-                /*phone: $.trim(form.phone_number.value),
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
                 email: $.trim(form.email.value),
                 address:{
                     line1: $.trim(form.street_address1.value),
@@ -72,8 +73,7 @@ form.addEventListener('submit', function(ev) {
                     country: $.trim(form.country.value),
                     state: $.trim(form.county.value),
                 }*/
-            },
-        },
+            }
             /*
             shipping: {
                 name: $.trim(form.full_name.value),
@@ -88,26 +88,26 @@ form.addEventListener('submit', function(ev) {
                 }
             },
             */
-    })
-    .then(function(result) {
-        if (result.error) {
-            var errorDiv = document.getElementById('card-errors');
-            var html = `
-                <span class="icon" role="alert">
-                <i class="fas fa-times"></i>
-                </span>
-                <span>${result.error.message}</span>`;
-            $(errorDiv).html(html);
-            //$('#payment-form').fadeToggle(100);
-            //$('#loading-overlay').fadeToggle(100);
-            cardElement.update({ 'disabled': false});
-            $('#submit-button').attr('disabled', false);
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
+        })
+        .then(function(result) {
+            if (result.error) {
+                var errorDiv = document.getElementById('card-errors');
+                var html = `
+                    <span class="icon" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span>${result.error.message}</span>`;
+                $(errorDiv).html(html);
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
+                cardElement.update({ 'disabled': false});
+                $('#submit-button').attr('disabled', false);
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
             }
-        }
-    });
+        });
     /*}).fail(function () {
         // just reload the page, the error will be in django messages
         location.reload();
