@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'products',
 
     # Other
+    'django_countries',
     'crispy_forms',
     'crispy_bootstrap4',
 ]
