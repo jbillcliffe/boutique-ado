@@ -38,7 +38,9 @@ ALLOWED_HOSTS = [
     'jbill-boutique-ado-def64c57d89e.herokuapp.com',
     'jbill-boutique-ado.herokuapp.com', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net','https://*.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.codeinstitute-ide.net',
+    'https://*.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
