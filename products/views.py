@@ -73,7 +73,7 @@ def product_detail(request, product_id):
 @login_required
 def add_product(request):
     """ Add a product to the store """
-    if not request.user.is_superuser():
+    if not request.user.is_superuser:
         messages.error(request, 'You are not permitted to add a product')
         return redirect(reverse('products'))
     else:
@@ -101,7 +101,7 @@ def edit_product(request, product_id):
     """
     Edit a product in the store on a management page
     """
-    if not request.user.is_superuser():
+    if not request.user.is_superuser:
         messages.error(request, 'You are not permitted to edit a product')
         return redirect(reverse('products'))
     else:
@@ -131,7 +131,7 @@ def delete_product(request, product_id):
     """
     Delete a product from the store
     """
-    if not request.user.is_superuser():
+    if not request.user.is_superuser:
         messages.error(request, 'You are not permitted to delete a product')
         return redirect(reverse('products'))
     else:
