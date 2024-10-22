@@ -1,3 +1,8 @@
+import os
+import dj_database_url
+
+from django_countries.widgets import LazyChoicesMixin
+
 """
 Django settings for boutique_ado project.
 
@@ -9,15 +14,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
-# from pathlib import Path
 
 """ 
 for django-countries "monkey patch" 
 https://code.djangoproject.com/ticket/35046#comment:4
 """
-from django_countries.widgets import LazyChoicesMixin
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -141,7 +142,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
