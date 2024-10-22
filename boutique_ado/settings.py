@@ -127,7 +127,7 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/accounts/login'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/login'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'  # location to login
-LOGIN_REIRECT_URL = '/'  # redirect after successful login
+LOGIN_REDIRECT_URL = '/'  # redirect after successful login
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
