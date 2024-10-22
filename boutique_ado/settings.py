@@ -33,10 +33,12 @@ SECRET_KEY = 'django-insecure-hy#*3ik)=i5fb299pf$eivpw-38#zp!kzcl8qjvxy+wh%!#ga^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-jbillcliffe-boutiqueado-jjl9fjjwmvj.ws.codeinstitute-ide.net',
+ALLOWED_HOSTS = [
+    '8000-jbillcliffe-boutiqueado-jjl9fjjwmvj.ws.codeinstitute-ide.net',
+    'jbill-boutique-ado-def64c57d89e.herokuapp.com',
     'jbill-boutique-ado.herokuapp.com', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net']
+CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net','https://*.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
