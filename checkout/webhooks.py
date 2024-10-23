@@ -26,6 +26,9 @@ def webhook(request):
             payload, sig_header, wh_secret
         )
 
+        print("Event")
+        print(event)
+
     except ValueError as e:
         # Invalid payload
         print("payload")
@@ -42,7 +45,8 @@ def webhook(request):
 
     # Set up a webhook handler
     handler = StripeWH_Handler(request)
-
+    print("handler")
+    print(handler)
     # Map webhook events to relevant handler functions
     event_map = {
         'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
