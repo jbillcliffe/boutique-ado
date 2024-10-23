@@ -27,7 +27,7 @@ class StripeWH_Handler:
         Send user a confirmation email
         """
         cust_email = order.email
-        
+
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
@@ -37,7 +37,7 @@ class StripeWH_Handler:
 
         send_mail(
             subject=subject,
-            body=body,
+            message=body,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[cust_email]
         )
