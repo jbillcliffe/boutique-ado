@@ -38,7 +38,7 @@ class StripeWH_Handler:
         send_mail(
             subject=subject,
             message=body,
-            from_email=settings.DEFAULT_FROM_EMAIL,
+            settings.DEFAULT_FROM_EMAIL,
             recipient_list=[cust_email]
         )
 
