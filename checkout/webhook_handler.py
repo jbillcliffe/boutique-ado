@@ -27,29 +27,25 @@ class StripeWH_Handler:
         Send user a confirmation email
         """
         cust_email = order.email
+        
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        send_mail(
-            subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            [cust_email]
-        )
 
-        print(cust_email)
-        print(subject)
-        print(body)
-        print(send_mail)
+        send_mail(
+            subject=subject,
+            body=body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[cust_email]
+        )
 
     def handle_event(self, event):
         """
         Handle a generic/unknown/unexpected webhook event
         """
-        
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200
