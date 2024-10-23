@@ -183,30 +183,6 @@ def checkout_success(request, order_number):
     context = {
         'order': order,
     }
-    
-    return render(request, template, context)
-
-    """
-    if request.user.is_authenticated:
-        profile = UserProfile.objects.get(user=request.user)
-        # Attach the user's profile to the order
-        order.user_profile = profile
-        order.save()
-
-        
-
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
-
-    if 'bag' in request.session:
-        del request.session['bag']
-
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
 
     return render(request, template, context)
-    """
 
