@@ -49,7 +49,7 @@ class StripeWH_Handler:
         """
         Handle a generic/unknown/unexpected webhook event
         """
-        #
+        
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200
@@ -59,7 +59,7 @@ class StripeWH_Handler:
         """
         Handle a payment_intent.succeeded from Stripe
         """
-
+        print("In Succeeded")
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
@@ -69,7 +69,7 @@ class StripeWH_Handler:
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
-
+        print(stripe_charge)
         billing_details = stripe_charge.billing_details  # updated
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)  # updated
@@ -97,7 +97,8 @@ class StripeWH_Handler:
         order_exists = False
         attempt = 1
         while attempt <= 5:
-
+            print("Attempt")
+            print(attempt)
             try:
                 order = Order.objects.get(
                     full_name__iexact=shipping_details.name,
@@ -118,8 +119,11 @@ class StripeWH_Handler:
             except Order.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
+        print("Order Exists :")
+        print(order_exists)
 
         if order_exists:
+            print("Point of first email")
             self._send_confirmation_email(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
@@ -165,6 +169,8 @@ class StripeWH_Handler:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
+
+        print("Point of 2nd email")
         self._send_confirmation_email(order)
         return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
