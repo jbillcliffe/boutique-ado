@@ -278,6 +278,7 @@ input[name='q']::placeholder {
 }
 
 /* pad top a when navbar collapsed on mobile */
+
 @media (max-width: 991px) {
     .header-container {
         padding-top:116px;
